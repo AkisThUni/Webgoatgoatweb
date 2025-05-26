@@ -1,8 +1,8 @@
 # 📄 Vulnerability Report - WebGoat
 
-## 🔍 Εντοπισμένα Alerts
+## 🔍 Found Alerts
 
-| Severity | Είδος Ευπάθειας     | Αρχείο                          | Περιγραφή                                      | Link στο CVE |
+| Severity | Weakness Type    | File                          | Description                                      | Llink to CVE |
 |----------|---------------------|----------------------------------|------------------------------------------------|----------------|
 | Critical | [1] XML External Entity Attack| webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Comments.java:101 | Parsing untrusted XML files with a weak-configured XML parseyer, results to a XXE attack | [CWE Alert](https://cwe.mitre.org/data/definitions/611.html)     |
 | Critical | [2] Server-side request forgery | webgoat-container/src/main/java/org/owasp/webgoat/WebSecurityConfig.java:72 | Input into an HTTP request without validating the input can facilitate server-side request forgery (SSRF) attacks. In these attacks, the server may be tricked into making a request and interacting with an attacker-controlled server. | [CWE Alert](https://cwe.mitre.org/data/definitions/918.html)     | 
@@ -13,7 +13,7 @@
 
 ---
 
-## 🛡️ Προτεινόμενα Μέτρα Αντιμετώπισης
+## 🛡️ Recommended Solutions
 
 ### [1] XXE Attack
 - Disabling the parsing of any Document Type Declarations (DTDs) in untrusted data.
@@ -39,7 +39,7 @@
 
 ### [5] Insecure randomness
 - The `java.util.Random` random number generator is not cryptographically secure. Use a secure random number generator such as `java.security.SecureRandom` instead.
-- Use a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context. As a general rule, a value should be considered "security-sensitive" if predicting it would allow the attacker to perform an action that they would otherwise be unable to perform. For example, if an attacker could predict the random password generated for a new user, they would be able to log in as that new user.
+- Use a cryptographically secure pseudo-random number generator if the output is to be used in a security-sensitive context.
 
 ### [6] Missing JWT signature check 
 - Always verify the signature by using either the parseClaimsJws and parsePlaintextJws methods or by overriding the onPlaintextJws or onClaimsJws of JwtHandlerAdapter.
@@ -47,14 +47,15 @@
 
 ---
 
-## 🔁 Κατάσταση μετά τη Διόρθωση
+## 🔁 Issue Status Post Fix
 
-| Ευπάθεια | Κατάσταση | Σχόλιο |
-|----------|-----------|--------|
-| [1] XXE Attack | ✅ Pending | ???  |
-| [2] Command Injection | ✅ Fixed | Αφαιρέθηκε η χρήση `Runtime.exec`. |
-| [3] Path Traversal | ✅ Fixed | Προστέθηκε έλεγχος με canonical path. |
-| [4] XSS | ✅ Fixed | Εφαρμόστηκε HTML encoding. |
-| [5] Hardcoded Credentials | ✅ Fixed | Μεταφέρθηκαν σε αρχείο `.env`. |
+| Weakness | Status    | 
+|----------|-----------|
+| [1] XXE Attack | ❔ Pending | 
+| [2] SSRF| ❔ Fixed | 
+| [3] Deserialization of user data | ❔ Pending |
+| [4] CSRF protection | ❔ Pending |
+| [5] Insecure Randomness | ❔ Pending |
+| [6] Missing JWT signature check | ❔ Pending |
 
 ---
