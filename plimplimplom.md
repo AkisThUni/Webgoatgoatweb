@@ -4,12 +4,12 @@
 
 | Severity | Είδος Ευπάθειας     | Αρχείο                          | Περιγραφή                                      | Link στο CVE |
 |----------|---------------------|----------------------------------|------------------------------------------------|----------------|
-| Critical | [1] XML External Entity Attack| webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Comments.java:101 | Parsing untrusted XML files with a weak-configured XML parseyer, results to a XXE attack | [Alert](https://cwe.mitre.org/data/definitions/611.html)     |
-| Critical | [2] Server-side request forgery | webgoat-container/src/main/java/org/owasp/webgoat/WebSecurityConfig.java:72 | input into an HTTP request without validating the input can facilitate server-side request forgery (SSRF) attacks. In these attacks, the server may be tricked into making a request and interacting with an attacker-controlled server. | [Alert](https://cwe.mitre.org/data/definitions/918.html)     | 
-| Critical | [3] Deserialization of user-controlled data     | webgoat-lessons/insecure-deserialization/src/main/java/org/owasp/webgoat/deserialization/InsecureDeserializationTask.java:56   | Deserializing untrusted data using any deserialization framework that allows the construction of arbitrary serializable objects is easily exploitable and in many cases allows an attacker to execute arbitrary code. Even before a deserialized object is returned to the caller of a deserialization method a lot of code may have been executed, including static initializers, constructors, and finalizers. Automatic deserialization of fields means that an attacker may craft a nested combination of objects on which the executed initialization code may have unforeseen effects, such as the execution of arbitrary code.| [Alert](https://cwe.mitre.org/data/definitions/502.html)     |
-| High     | [4] Disabled Spring CSRF protection | webwolf/src/main/java/org/owasp/webwolf/WebSecurityConfig.java:56 | Cross-site request forgery (CSRF) is a type of vulnerability in which an attacker is able to force a user to carry out an action that the user did not intend. | [Alert](https://cwe.mitre.org/data/definitions/352.html)   |
-| High     | [5] Insecure randomness | webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTRefreshEndpoint.java:91 | If you use a cryptographically weak pseudo-random number generator to generate security-sensitive values, such as passwords, attackers can more easily predict those values.   | [Alert](https://cwe.mitre.org/data/definitions/330.html)     |
-| High     | [6] Missing JWT signature check | webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTRefreshEndpoint.java:129 | A JSON Web Token (JWT) consists of three parts: header, payload, and signature. The io.jsonwebtoken.jjwt library is one of many libraries used for working with JWTs. It offers different methods for parsing tokens like parse, parseClaimsJws, and parsePlaintextJws. The last two correctly verify that the JWT is properly signed. This is done by computing the signature of the combination of header and payload and comparing the locally computed signature with the signature part of the JWT.
+| Critical | [1] XML External Entity Attack| webgoat-lessons/xxe/src/main/java/org/owasp/webgoat/xxe/Comments.java:101 | Parsing untrusted XML files with a weak-configured XML parseyer, results to a XXE attack | [CWE Alert](https://cwe.mitre.org/data/definitions/611.html)     |
+| Critical | [2] Server-side request forgery | webgoat-container/src/main/java/org/owasp/webgoat/WebSecurityConfig.java:72 | Input into an HTTP request without validating the input can facilitate server-side request forgery (SSRF) attacks. In these attacks, the server may be tricked into making a request and interacting with an attacker-controlled server. | [CWE Alert](https://cwe.mitre.org/data/definitions/918.html)     | 
+| Critical | [3] Deserialization of user-controlled data     | webgoat-lessons/insecure-deserialization/src/main/java/org/owasp/webgoat/deserialization/InsecureDeserializationTask.java:56   | Deserializing untrusted data using any deserialization framework that allows the construction of arbitrary serializable objects is easily exploitable and in many cases allows an attacker to execute arbitrary code.| [CWE Alert](https://cwe.mitre.org/data/definitions/502.html)     |
+| High     | [4] Disabled Spring CSRF protection | webwolf/src/main/java/org/owasp/webwolf/WebSecurityConfig.java:56 | Cross-site request forgery (CSRF) is a type of vulnerability in which an attacker is able to force a user to carry out an action that the user did not intend. | [CWE Alert](https://cwe.mitre.org/data/definitions/352.html)   |
+| High     | [5] Insecure randomness | webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTRefreshEndpoint.java:91 | If you use a cryptographically weak pseudo-random number generator to generate security-sensitive values, such as passwords, attackers can more easily predict those values.   | [CWE Alert](https://cwe.mitre.org/data/definitions/330.html)     |
+| High     | [6] Missing JWT signature check | webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTRefreshEndpoint.java:129 | A JSON Web Token (JWT) consists of three parts: header, payload, and signature. The io.jsonwebtoken.jjwt library is one of many libraries used for working with JWTs.
 
 Therefore it is necessary to provide the JwtParser with a key that is used for signature validation. Unfortunately the parse method accepts a JWT whose signature is empty although a signing key has been set for the parser. This means that an attacker can create arbitrary JWTs that will be accepted if this method is used. | [Alert](https://cwe.mitre.org/data/definitions/347.html) |
 
@@ -20,7 +20,6 @@ Therefore it is necessary to provide the JwtParser with a key that is used for s
 ### [1] XXE Attack
 - Disabling the parsing of any Document Type Declarations (DTDs) in untrusted data.
 - Protection against denial of service attacks may also be implemented by setting entity expansion limits, which is done by default in recent JDK and JRE implementations
-- 
 
 ### [2] Server-side request forgery
 - avoid putting user-provided input directly into a request URL
@@ -47,7 +46,7 @@ Therefore it is necessary to provide the JwtParser with a key that is used for s
 ### [6] Missing JWT signature check 
 - Always verify the signature by using either the parseClaimsJws and parsePlaintextJws methods or by overriding the onPlaintextJws or onClaimsJws of JwtHandlerAdapter.
 
-Example
+
 ---
 
 ## 🔁 Κατάσταση μετά τη Διόρθωση
