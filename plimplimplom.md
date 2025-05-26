@@ -11,7 +11,7 @@
 | High     | [5] Insecure randomness | webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTRefreshEndpoint.java:91 | If you use a cryptographically weak pseudo-random number generator to generate security-sensitive values, such as passwords, attackers can more easily predict those values.   | [CWE Alert](https://cwe.mitre.org/data/definitions/330.html)     |
 | High     | [6] Missing JWT signature check | webgoat-lessons/jwt/src/main/java/org/owasp/webgoat/jwt/JWTRefreshEndpoint.java:129 | A JSON Web Token (JWT) consists of three parts: header, payload, and signature. The io.jsonwebtoken.jjwt library is one of many libraries used for working with JWTs.
 
-Therefore it is necessary to provide the JwtParser with a key that is used for signature validation. Unfortunately the parse method accepts a JWT whose signature is empty although a signing key has been set for the parser. This means that an attacker can create arbitrary JWTs that will be accepted if this method is used. | [Alert](https://cwe.mitre.org/data/definitions/347.html) |
+Therefore it is necessary to provide the JwtParser with a key that is used for signature validation. Unfortunately the parse method accepts a JWT whose signature is empty although a signing key has been set for the parser. This means that an attacker can create arbitrary JWTs that will be accepted if this method is used. | [CWE Alert](https://cwe.mitre.org/data/definitions/347.html) |
 
 ---
 
